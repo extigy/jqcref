@@ -2,7 +2,7 @@ import re
 import sys
 
 def getyear(s):
-	yearline = re.findall(r'year\s*=\s*.*',s)
+	yearline = re.findall(r'year\s*=\s*.*',s,re.I)
 	if yearline:
 		yearstring = re.findall(r'[0-9]+',yearline[0])[0]
 		return yearstring
