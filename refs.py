@@ -41,4 +41,5 @@ for entry in entires:
 		newentry =  ','.join(splitcomma)
 		print newentry
 	else:
-		print  "No authors found, falling back..."
+		#print  "No authors found, falling back..."
+		print entry
