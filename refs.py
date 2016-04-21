@@ -1,15 +1,32 @@
 import re
 import sys
+
+def getyear(s):
+	yearline = re.findall(r'year\s*=\s*.*',s)
+	if yearline:
+		yearstring = re.findall(r'[0-9]+',yearline[0])[0]
+		return yearstring
+	else:
+		return None
+
+def cmp(a, b):
+	if not getyear(a) or not getyear(b):
+		return -1
+	if int(float(getyear(a))) > int(float(getyear(b))):
+		return 1
+	elif int(float(getyear(a))) == int(float(getyear(b))):
+		return 0
+	else:
+		return -1
+
 #refoldfile = open('refold.bib', 'r')
 entires = re.findall(r'@.*\{.*\n(?:.*=.*\n)*\}', sys.stdin.read() ,re.I)
+newentries = []
 for entry in entires:
 	#print ("---------Found entry----------")
 	label = "ERROR" # incase it all goes wrong search output for ERROR
 	authorline = re.findall(r'author\s*=\s*.*',entry,re.I)
-	yearline = re.findall(r'year\s*=\s*.*',entry)
-	if yearline:
-		yearstring = re.findall(r'[0-9]+',yearline[0])[0]
-		#print "year: ", yearstring
+	yearstring = getyear(entry)
 	if authorline:
 		#print  "authorline: ", authorline[0]
 		cleanauthorline = re.split(r'\s*=\s*', authorline[0])[1][1:-2] # get rid of = and the opening/closing {},
@@ -33,13 +50,16 @@ for entry in entires:
 		#print "Parsed authors: ", authorsurnames
 		if authorsurnames:
 			label = '_'.join(authorsurnames[:2]).lower()
-		if yearline:
+		if yearstring:
 			label = label + "_" + yearstring
 		#print "Using label: ", label
 		splitcomma = re.split(r',', entry)
 		splitcomma[0] = re.sub(r"(\{.*)", "{"+label, splitcomma[0])
 		newentry =  ','.join(splitcomma)
-		print newentry
+		newentries.append(newentry)
 	else:
 		#print  "No authors found, falling back..."
-		print entry
+		newentries.append(entry)
+
+newentries.sort(cmp)
+print '\n'.join(newentries);

@@ -36,7 +36,9 @@ into this:
   publisher = {American Physical Society}
 }
 ```
-In other words, the file takes the entries author names and year of publication and makes the entry label "author1_author2_year". Author formats that should work are variants of "A. N. Other", "Other, A N", etc. 
+In other words, the file takes the entries author names and year of publication and makes the entry label "author1_author2_year". Author formats that should work are variants of "A. N. Other", "Other, A N", etc.
+
+Additionally it should also sort references by year. 
 
 #### Neat! How do I use it?
 Type the following into a unix terminal to get the latest copy of the repository:
