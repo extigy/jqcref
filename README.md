@@ -51,3 +51,7 @@ To run the python code on your own, appropriately styled, bib file, run:
 cat old.bib |  python refs.py > references.bib
 ```
 where old.bib is your old bib file, and references.bib is to contain the new bib file. An example old.bib is included.
+
+#### Problems?
+
+I hacked this together as a quick script for my own bib file in about an hour with some dodgy regex. It may fail spectacularly on other people's bibs. If you know a better way to do what I'm doing in refs.py, edit the file and send a pull request! Thanks!
